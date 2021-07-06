@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>unionfs on My Dev Blog</title>
+    <link>https://jobcespedes.dev/tags/unionfs/</link>
+    <description>Recent content in unionfs on My Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>© 2020 Job Céspedes Ortiz</copyright>
+    <lastBuildDate>Mon, 02 Mar 2020 10:48:50 -0600</lastBuildDate><atom:link href="https://jobcespedes.dev/tags/unionfs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>alias docker=podman</title>
+      <link>https://jobcespedes.dev/2020/03/alias-docker-podman/</link>
+      <pubDate>Mon, 02 Mar 2020 10:48:50 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/2020/03/alias-docker-podman/</guid>
+      <description>I have heard about podman (Pod Manager tool) more and more often now. Whether it is that I have come closer to its developing environment or that it has come to mine, I&amp;rsquo;m not sure. It&amp;rsquo;s both, I guess. I use Ansible a lot for automating baremetal and virtual infrastructure: for its definition, deployment, configuration, operation, among other things. In the recent years, I have being using more and more containers, particularly in the developing stages.</description>
+    </item>
+    
+    <item>
+      <title>Multiple Environments in Ansible</title>
+      <link>https://jobcespedes.dev/2020/02/multiple-environments-in-ansible/</link>
+      <pubDate>Thu, 27 Feb 2020 14:14:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/2020/02/multiple-environments-in-ansible/</guid>
+      <description>Many systems are deployed in a multienvironment context, for example: production, stage, and dev. These environments often share variables and artifacts. In Ansible, there are different methods to work in this context. For example, separate directory layout and soft links. However, it can end with a considerable amount of data and duplicate files between environments, exposing variables to all hosts or adding much more complexity to playbooks.
+Demo multienv tests a stackable multienvironment directory layout for Ansible, using multienv Ansible role.</description>
+    </item>
+    
+  </channel>
+</rss>
