@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on My Dev Blog</title>
+    <link>https://jobcespedes.dev/tags/</link>
+    <description>Recent content in Tags on My Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>© 2020 Job Céspedes Ortiz</copyright>
+    <lastBuildDate>Sat, 22 Jan 2022 23:00:00 -0600</lastBuildDate><atom:link href="https://jobcespedes.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>containers</title>
+      <link>https://jobcespedes.dev/tags/containers/</link>
+      <pubDate>Sat, 22 Jan 2022 23:00:00 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/containers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>keydb</title>
+      <link>https://jobcespedes.dev/tags/keydb/</link>
+      <pubDate>Sat, 22 Jan 2022 23:00:00 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/keydb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>krestomatio</title>
+      <link>https://jobcespedes.dev/tags/krestomatio/</link>
+      <pubDate>Sat, 22 Jan 2022 23:00:00 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/krestomatio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://jobcespedes.dev/tags/kubernetes/</link>
+      <pubDate>Sat, 22 Jan 2022 23:00:00 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>m4e-operator</title>
+      <link>https://jobcespedes.dev/tags/m4e-operator/</link>
+      <pubDate>Sat, 22 Jan 2022 23:00:00 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/m4e-operator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>https://jobcespedes.dev/tags/redis/</link>
+      <pubDate>Sat, 22 Jan 2022 23:00:00 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>autoexpansion</title>
+      <link>https://jobcespedes.dev/tags/autoexpansion/</link>
+      <pubDate>Fri, 02 Jul 2021 13:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/autoexpansion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nfs</title>
+      <link>https://jobcespedes.dev/tags/nfs/</link>
+      <pubDate>Fri, 02 Jul 2021 13:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/nfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>operator</title>
+      <link>https://jobcespedes.dev/tags/operator/</link>
+      <pubDate>Fri, 02 Jul 2021 13:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/operator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rook</title>
+      <link>https://jobcespedes.dev/tags/rook/</link>
+      <pubDate>Fri, 02 Jul 2021 13:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/rook/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>centos</title>
+      <link>https://jobcespedes.dev/tags/centos/</link>
+      <pubDate>Fri, 25 Jun 2021 18:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/centos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://jobcespedes.dev/tags/docker/</link>
+      <pubDate>Fri, 25 Jun 2021 18:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>podman</title>
+      <link>https://jobcespedes.dev/tags/podman/</link>
+      <pubDate>Fri, 25 Jun 2021 18:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/podman/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rocky</title>
+      <link>https://jobcespedes.dev/tags/rocky/</link>
+      <pubDate>Fri, 25 Jun 2021 18:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/rocky/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ansible</title>
+      <link>https://jobcespedes.dev/tags/ansible/</link>
+      <pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>database</title>
+      <link>https://jobcespedes.dev/tags/database/</link>
+      <pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IaC</title>
+      <link>https://jobcespedes.dev/tags/iac/</link>
+      <pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/iac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>molecule</title>
+      <link>https://jobcespedes.dev/tags/molecule/</link>
+      <pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/molecule/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pgpool2</title>
+      <link>https://jobcespedes.dev/tags/pgpool2/</link>
+      <pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/pgpool2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>postgres</title>
+      <link>https://jobcespedes.dev/tags/postgres/</link>
+      <pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/postgres/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bind-propagation</title>
+      <link>https://jobcespedes.dev/tags/bind-propagation/</link>
+      <pubDate>Mon, 02 Mar 2020 10:48:50 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/bind-propagation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unionfs</title>
+      <link>https://jobcespedes.dev/tags/unionfs/</link>
+      <pubDate>Mon, 02 Mar 2020 10:48:50 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/unionfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>user namespaces</title>
+      <link>https://jobcespedes.dev/tags/user-namespaces/</link>
+      <pubDate>Mon, 02 Mar 2020 10:48:50 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/tags/user-namespaces/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

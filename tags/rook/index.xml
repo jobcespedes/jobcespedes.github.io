@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rook on My Dev Blog</title>
+    <link>https://jobcespedes.dev/tags/rook/</link>
+    <description>Recent content in rook on My Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>© 2020 Job Céspedes Ortiz</copyright>
+    <lastBuildDate>Fri, 02 Jul 2021 13:55:42 -0600</lastBuildDate><atom:link href="https://jobcespedes.dev/tags/rook/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Kubernetes NFS Operator</title>
+      <link>https://jobcespedes.dev/2021/07/a-kubernetes-nfs-operator/</link>
+      <pubDate>Fri, 02 Jul 2021 13:55:42 -0600</pubDate>
+      
+      <guid>https://jobcespedes.dev/2021/07/a-kubernetes-nfs-operator/</guid>
+      <description>NFS Operator adds three important features for a NFS in Kubernetes. It allows setting NFS export ownership/permissions, enables PVC autoexpansion and reduces the number of manual resource definitions. It is based on Rook NFS v1.7 and Ansible Operator SDK. Thus, the new features are in addition to those in Rook NFS. The extra functions it adds on top of Rook NFS are:
+ It is able to set ownership and permissions for the (NFS) Server export It is able to autoexpand/adjust the value of (NFS) Server PVC storage size It automatically creates a StorageClass with a (NFS) Server  There are some restrictions compared to Rook NFS:</description>
+    </item>
+    
+  </channel>
+</rss>
