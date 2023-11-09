@@ -1,22 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>pgpool2 on My Dev Blog</title>
-    <link>https://jobcespedes.dev/tags/pgpool2/</link>
-    <description>Recent content in pgpool2 on My Dev Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <copyright>© 2020 Job Céspedes Ortiz</copyright>
-    <lastBuildDate>Thu, 21 May 2020 18:14:42 -0600</lastBuildDate><atom:link href="https://jobcespedes.dev/tags/pgpool2/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Simple Testing of Complex Scenarios</title>
-      <link>https://jobcespedes.dev/2020/05/simple-testing-of-complex-scenarios/</link>
-      <pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate>
-      
-      <guid>https://jobcespedes.dev/2020/05/simple-testing-of-complex-scenarios/</guid>
-      <description>Is there something easy when deploying and configuring the database layer?
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>pgpool2 on My Dev Blog</title><link>https://jobcespedes.dev/tags/pgpool2/</link><description>Recent content in pgpool2 on My Dev Blog</description><generator>Hugo -- gohugo.io</generator><copyright>© 2020 Job Céspedes Ortiz</copyright><lastBuildDate>Thu, 21 May 2020 18:14:42 -0600</lastBuildDate><atom:link href="https://jobcespedes.dev/tags/pgpool2/index.xml" rel="self" type="application/rss+xml"/><item><title>Simple Testing of Complex Scenarios</title><link>https://jobcespedes.dev/2020/05/simple-testing-of-complex-scenarios/</link><pubDate>Thu, 21 May 2020 18:14:42 -0600</pubDate><guid>https://jobcespedes.dev/2020/05/simple-testing-of-complex-scenarios/</guid><description>Is there something easy when deploying and configuring the database layer?
 Aspects of Data integrity and reliable/safe operations add up to complexity, which only increases when tradicional SQL, high availability, fault tolerance, scalability and high levels of concurrency, are required. It is a sensitive layer, no doubt. Consequently, if there is something easy there, it would be to screw everything up.
-Do not fear, go test, screw up and learn. I mean, just not in production.</description>
-    </item>
-    
-  </channel>
-</rss>
+Do not fear, go test, screw up and learn. I mean, just not in production.</description></item></channel></rss>

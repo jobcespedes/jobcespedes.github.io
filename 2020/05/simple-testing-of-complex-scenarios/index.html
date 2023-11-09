@@ -1,526 +1,105 @@
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Simple Testing of Complex Scenarios - My Dev Blog</title>
-  <meta name="description" content="using Ansible and Molecule">
-  <meta name="author" content="Job Céspedes Ortiz"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "My Dev Blog",
-    
-    "url": "https:\/\/jobcespedes.dev\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/jobcespedes.dev\/"
-  
-  
-  
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/jobcespedes.dev\/",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/jobcespedes.dev\/2020\/05\/simple-testing-of-complex-scenarios\/",
-          "name": "Simple testing of complex scenarios"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Job Céspedes Ortiz"
-  },
-  "headline": "Simple Testing of Complex Scenarios",
-  "description" : "Is there something easy when deploying and configuring the database layer?\nAspects of Data integrity and reliable\/safe operations add up to complexity, which only increases when tradicional SQL, high availability, fault tolerance, scalability and high levels of concurrency, are required. It is a sensitive layer, no doubt. Consequently, if there is something easy there, it would be to screw everything up.\nDo not fear, go test, screw up and learn. I mean, just not in production.",
-  "inLanguage" : "en",
-  "wordCount":  1246 ,
-  "datePublished" : "2020-05-21T18:14:42",
-  "dateModified" : "2020-05-21T18:14:42",
-  "image" : "https:\/\/jobcespedes.dev\/img\/me_avatar.png",
-  "keywords" : [ "database, postgres, pgpool2, molecule, ansible, containers, docker, IaC" ],
-  "mainEntityOfPage" : "https:\/\/jobcespedes.dev\/2020\/05\/simple-testing-of-complex-scenarios\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/jobcespedes.dev\/",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/jobcespedes.dev\/img\/me_avatar.png",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="Simple Testing of Complex Scenarios" />
-<meta property="og:description" content="using Ansible and Molecule">
-<meta property="og:image" content="https://jobcespedes.dev/img/me_avatar.png" />
-<meta property="og:url" content="https://jobcespedes.dev/2020/05/simple-testing-of-complex-scenarios/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="My Dev Blog" />
-
-  <meta name="twitter:title" content="Simple Testing of Complex Scenarios" />
-  <meta name="twitter:description" content="using Ansible and Molecule">
-  <meta name="twitter:image" content="https://jobcespedes.dev/img/me_avatar.png" />
-  <meta name="twitter:card" content="summary" />
-  <link href='https://jobcespedes.dev/img/me.ico' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.96.0" />
-  <link rel="alternate" href="https://jobcespedes.dev/index.xml" type="application/rss+xml" title="My Dev Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jobcespedes.dev/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://jobcespedes.dev/css/highlight.min.css" /><link rel="stylesheet" href="https://jobcespedes.dev/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-159956456-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-  </head>
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://jobcespedes.dev/">My Dev Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-
-        
-
-        
-      </ul>
-    </div>
-
-    
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="My Dev Blog" href="https://jobcespedes.dev/">
-            <img class="avatar-img" src="https://jobcespedes.dev/img/me_avatar.png" alt="My Dev Blog" />
-          </a>
-        </div>
-      </div>
-    
-
-  </div>
-</nav>
-
-
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
-    
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="posts-heading">
-              
-                <h1>Simple Testing of Complex Scenarios</h1>
-              
-              
-                <hr class="small">
-              
-              
-                
-                  <h2 class="posts-subheading">using Ansible and Molecule</h2>
-                
-              
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p><strong>Is there something easy when deploying and configuring the database layer?</strong></p>
-<p>Aspects of Data integrity and reliable/safe operations add up to complexity, which only increases when tradicional SQL, high availability, fault tolerance, scalability and high levels of concurrency, are required. It is a sensitive layer, no doubt. Consequently, if there is something easy there, it would be to screw everything up.</p>
-<p>Do not fear, go test, screw up and learn. I mean, just not in production. How? By leveraging Infra automation and testing using <a href="https://docs.ansible.com/">Ansible</a>, <a href="https://molecule.readthedocs.io/en/latest/">Molecule</a> and containers. They will allow you to quickly create a disposable local environment in which you can deploy your automated configuration and do all the testing you need as well as verification.</p>
-<p>If this is of interest to you, keep reading for an actual example you could try in your machine. It is a Postgres cluster to be configured by Ansible. You can deploy it to local containers using Molecule, a framework for developing and testing Ansible roles. You just need to be acquainted with Ansible <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html">inventories</a>, <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html">roles</a> and <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html">playbooks</a>.</p>
-<p>This reading will be structured as follows: a) Ansible role for the cluster; b) prerequisites to run it; c) screwing things up; d) testing and verifying;</p>
-<hr>
-<h2 id="ansible-role">Ansible role</h2>
-<p>Ok. Back to the example, <a href="https://github.com/jobcespedes/pg_cluster">pg_cluster</a> is an Ansible role to install, configure and bootstrap a Postgres cluster. You can install it, run it and test it, in a local environment using Molecule, checking that some prerequisites are installed first.</p>
-<p>Let me just mention real quick what Postgres and Pgpool2 are, in case they need some introduction 😜. <a href="https://www.postgresql.org/">Postgres</a> is a object-relational database system, considered one of the best. <a href="https://www.pgpool.net/mediawiki/index.php/Main_Page">Pgpool2</a> is a middleware in front of Postgres for connection pooling, load balancing and watchdog. It can handle backend failover, failback and recovery. Both are open source.</p>
-<p>This role installs a cluster with 3 nodes -bear with me, here comes a textual description-. Each node runs Pgpool2 and Postgres. Pgpool2 and Postgres have two roles each. For Postgres, those roles are: primary and standby. For Pgpool2, those roles are: active and standby. Pgpool and Postgres roles are independent. However, the first node starts with both, active (pgpool2) and primary(postgres). It has a Floating IP. The rest of nodes have standby role (pgpool and postgres).</p>
-<p>The following diagram is a graphical and probably better description of the last paragraph:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Plaintext" data-lang="Plaintext"><span class="line"><span class="cl">                  FLOATING IP
-</span></span><span class="line"><span class="cl">                 +-----------+     WATCHDOG
-</span></span><span class="line"><span class="cl">        +--------|  PGPOOL2  |--------+
-</span></span><span class="line"><span class="cl">        |        ------------- nic0   |
-</span></span><span class="line"><span class="cl">        |        |           |        |
-</span></span><span class="line"><span class="cl">        |        | POSTGRES  |        |
-</span></span><span class="line"><span class="cl">        |        | master    |        |
-</span></span><span class="line"><span class="cl">        |        +-----------+        |
-</span></span><span class="line"><span class="cl">        |          nic1|              |
-</span></span><span class="line"><span class="cl">  +-----------+        |        +-----------+
-</span></span><span class="line"><span class="cl">  |  PGPOOL2  |        |        |  PGPOOL2  |
-</span></span><span class="line"><span class="cl">  |-----------|        |        -------------
-</span></span><span class="line"><span class="cl">  |           |        |        |           |
-</span></span><span class="line"><span class="cl">  | POSTGRES  |        |        | POSTGRES  |
-</span></span><span class="line"><span class="cl">  | standby   |-----------------| stanby    |
-</span></span><span class="line"><span class="cl">  +-----------+   REPLICATION   +-----------+
-</span></span></code></pre></div><blockquote>
-<p>DISCLAIMER: pg_cluster has been used only in testing so far</p>
-</blockquote>
-<hr>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>In order to test this role, make sure the following prerequisites are met. <a href="https://docs.docker.com/engine/install/#server">Docker should be installed</a>. You also need <a href="https://pip.pypa.io/en/stable/installing/">pip</a> to install Molecule and some other required python packages. For example, to install the prerequisites in Fedora you can do:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## Docker</span>
-</span></span><span class="line"><span class="cl">sudo dnf install -y docker
-</span></span><span class="line"><span class="cl"><span class="c1">## Pip</span>
-</span></span><span class="line"><span class="cl">sudo dnf install -y python3-pip
-</span></span><span class="line"><span class="cl"><span class="c1">## Ansible and role requirements</span>
-</span></span><span class="line"><span class="cl">pip install --user <span class="s2">&#34;ansible&gt;=2.8&#34;</span> netaddr
-</span></span><span class="line"><span class="cl"><span class="c1">## Molecule and its requirements</span>
-</span></span><span class="line"><span class="cl">pip install --user <span class="s2">&#34;molecule&gt;=3&#34;</span> docker ansible-lint yamllint flake8
-</span></span></code></pre></div><p>Once they are installed, download <a href="https://github.com/jobcespedes/pg_cluster">pg_cluster</a> and you are ready to go:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/jobcespedes/pg_cluster
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> pg_cluster
-</span></span><span class="line"><span class="cl"><span class="nv">working_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
-</span></span></code></pre></div><blockquote>
-<p>$working_dir will be our working directory</p>
-</blockquote>
-<p>With <code>$working_dir</code> as your current path, <em>molecule</em> would be one of its directories. Inside <em>molecule</em> dir you will find the <em>default</em> test scenario. There you can find molecule configuration, playbooks for each <a href="##Test-and-verify">sequence</a> and the scenario&rsquo;s inventory.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">├── defaults
-</span></span><span class="line"><span class="cl">├── handlers
-</span></span><span class="line"><span class="cl">├── meta
-</span></span><span class="line"><span class="cl">├── molecule
-</span></span><span class="line"><span class="cl">│   └── default
-</span></span><span class="line"><span class="cl">│       ├── converge.yml
-</span></span><span class="line"><span class="cl">│       ├── group_vars
-</span></span><span class="line"><span class="cl">│       │   └── all.yml
-</span></span><span class="line"><span class="cl">│       ├── hosts
-</span></span><span class="line"><span class="cl">│       ├── molecule.yml
-</span></span><span class="line"><span class="cl">│       ├── prepare.yml
-</span></span><span class="line"><span class="cl">│       ├── side_effect.yml
-</span></span><span class="line"><span class="cl">│       └── verify.yml
-</span></span><span class="line"><span class="cl">├── tasks
-</span></span><span class="line"><span class="cl">├── templates
-</span></span><span class="line"><span class="cl">└── <span class="nb">test</span>
-</span></span></code></pre></div><p>If you want to modify the inventory and its variables, you can edit the &lsquo;hosts&rsquo; file, add &lsquo;group_vars&rsquo; files or add a &lsquo;host_vars&rsquo; dir and put some files in it. For example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">├── molecule
-</span></span><span class="line"><span class="cl">│   └── default
-</span></span><span class="line"><span class="cl">│       ├── host_vars
-</span></span><span class="line"><span class="cl">│       │   └── pg-master.yml
-</span></span><span class="line"><span class="cl">│       ├── group_vars
-</span></span><span class="line"><span class="cl">│       │   └── all.yml
-</span></span><span class="line"><span class="cl">│       ├── hosts
-</span></span></code></pre></div><hr>
-<h2 id="screwing-things-up">Screwing things up</h2>
-<p>With prerequisites met, you are ready to configure the cluster using containers. To create the local environment, run (be patient, it might take some time  😄):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">molecule converge
-</span></span></code></pre></div><p>That´s it. Molecule configured the cluster in your machine. The subcommand <em>converge</em> creates and prepares the default test scenario and leaves it up, running. So, you are able to modify it afterwards. The command <code>molecule destroy</code> removes it, in case you have no need for it anymore.</p>
-<p>While it is running, you can modify the Ansible role, molecule playbooks, molecule inventory, list cluster containers and log in to any of them, among other things:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># list cluster containers</span>
-</span></span><span class="line"><span class="cl">molecule list
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># log in to master node</span>
-</span></span><span class="line"><span class="cl">molecule login -h pg-master
-</span></span></code></pre></div><p>I will not try to tell you what to do here. You can do anything you want. But you might be interested in trying to remove one postgres backend and do an online recovery for it. You will need to log in to a container and run some commands there. First, run <code>molecule login -h pg-master</code> and then, inside the container:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 1. Dettachment
-</span></span><span class="line"><span class="cl">## check nodes status and notice &#39;status&#39; column of all nodes: &#39;up&#39;
-</span></span><span class="line"><span class="cl">psql -h localhost -U postgres -c &#34;show pool_nodes;&#34;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">## dettach first standby node with pcp command
-</span></span><span class="line"><span class="cl">pcp_detach_node -h localhost  -w -p 9898 -U postgres 1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># 2. Recovery
-</span></span><span class="line"><span class="cl">## check nodes status and notice &#39;status&#39; column of node 1: &#39;down&#39;
-</span></span><span class="line"><span class="cl">psql -h localhost -U postgres -c &#34;show pool_nodes;&#34;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">## online recovery of node 1
-</span></span><span class="line"><span class="cl">pcp_recovery_node -h localhost  -w -p 9898 -U postgres 1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># 3. Check recovery
-</span></span><span class="line"><span class="cl">## check nodes status and notice &#39;status&#39; column of all nodes: &#39;up&#39;
-</span></span><span class="line"><span class="cl">psql -h localhost -U postgres -c &#34;show pool_nodes;&#34;
-</span></span></code></pre></div><hr>
-<h2 id="test-and-verify">Test and verify</h2>
-<p>Molecule has several test sequences. Creating the scenario and preparing it are two of them.  In addition, Molecule gives you the option to run a specific one, a set of them or a full test with all sequences.</p>
-<p>Two sequences inside <a href="https://github.com/jobcespedes/pg_cluster">pg_cluster</a> are side_effect and verify. Side_effect sequence has some tasks related to what we already try: failover and online recovery. Verify sequence has some assertions about the cluster: checking all backends are up, checking pcp commands, number of nodes, roles, among others. Check each respective playbook for the details of what is being tested and verified.</p>
-<p>To verify after converge, run <code>molecule verify</code>. After you are done testing, remember to run <code>molecule destroy</code>.</p>
-<hr>
-<h2 id="conclusion">Conclusion</h2>
-<p>Ansible and Molecule help you test and verify an automated deployment. It could be on your machine, CI/CD or any any other environment. You have the option to do a full test sequence or specific sets. It enables incremental development of your automated configuration. The best part for me, it gives me a safe environment to debug, test and learn. I just need to run <code>molecule converge</code> and there I have it.</p>
-<p>Molecule has more to it than what has been covered here. <a href="https://molecule.readthedocs.io/en/latest/getting-started.html">Check out its docs</a> to learn more. If you have read this far, I hope you have been able to simple test a complex scenario and safely screwed things up. 👋</p>
-<hr>
-<h2 id="additional-resources">Additional Resources</h2>
-<p>The following resources are useful for further learning basic and advanced Ansible topics:</p>
-<ul>
-<li><a href="https://spacelift.io/blog/ansible-playbooks">Working with Ansible Playbooks – Tips &amp; Tricks with Examples</a></li>
-<li><a href="https://dev.to/jobcespedes/multiple-environments-in-ansible-4c6n">Multiple Environments in Ansible </a></li>
-</ul>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://jobcespedes.dev//tags/database/">database</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/postgres/">postgres</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/pgpool2/">pgpool2</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/molecule/">molecule</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/ansible/">ansible</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/containers/">containers</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/docker/">docker</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/iac/">IaC</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-          
-            
-          
-
-          
-                  <h4 class="see-also">See also</h4>
-                  <ul>
-                
-                
-                    <li><a href="/2022/01/a-keydb-operator/">A KeyDB Operator</a></li>
-                
-                    <li><a href="/2021/07/a-kubernetes-nfs-operator/">A Kubernetes NFS Operator</a></li>
-                
-                    <li><a href="/2021/06/a-minimal-container-image-for-rocky-linux-8/">A Minimal Container Image for Rocky Linux 8</a></li>
-                
-                    <li><a href="/2020/03/alias-docker-podman/">alias docker=podman</a></li>
-                
-                    <li><a href="/2020/02/multiple-environments-in-ansible/">Multiple Environments in Ansible</a></li>
-                
-              </ul>
-
-          
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://jobcespedes.dev/2020/03/alias-docker-podman/" data-toggle="tooltip" data-placement="top" title="alias docker=podman">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://jobcespedes.dev/2021/06/a-minimal-container-image-for-rocky-linux-8/" data-toggle="tooltip" data-placement="top" title="A Minimal Container Image for Rocky Linux 8">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
-</div>
-
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://github.com/jobcespedes" title="GitHub">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://gitlab.com/jobcespedes" title="GitLab">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/jobcespedes" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              Job Céspedes Ortiz
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2022
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://jobcespedes.dev/">My Dev Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
-      </div>
-    </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script src="https://jobcespedes.dev/js/main.js"></script>
-<script src="https://jobcespedes.dev/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jobcespedes.dev/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
-
-    
-  </body>
-</html>
-
+<!doctype html><html lang=en itemscope itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>Simple Testing of Complex Scenarios -</title><meta name=description content="using Ansible and Molecule"><meta name=author content="Job Céspedes Ortiz"><script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","name":"My Dev Blog","url":"https:\/\/jobcespedes.dev\/"}</script><script type=application/ld+json>{"@context":"http://schema.org","@type":"Organization","name":"","url":"https:\/\/jobcespedes.dev\/"}</script><script type=application/ld+json>{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https:\/\/jobcespedes.dev\/","name":"home"}},{"@type":"ListItem","position":3,"item":{"@id":"https:\/\/jobcespedes.dev\/2020\/05\/simple-testing-of-complex-scenarios\/","name":"Simple testing of complex scenarios"}}]}</script><script type=application/ld+json>{"@context":"http://schema.org","@type":"Article","author":{"name":"Job Céspedes Ortiz"},"headline":"Simple Testing of Complex Scenarios","description":"Is there something easy when deploying and configuring the database layer?\nAspects of Data integrity and reliable\/safe operations add up to complexity, which only increases when tradicional SQL, high availability, fault tolerance, scalability and high levels of concurrency, are required. It is a sensitive layer, no doubt. Consequently, if there is something easy there, it would be to screw everything up.\nDo not fear, go test, screw up and learn. I mean, just not in production.","inLanguage":"en","wordCount":1246,"datePublished":"2020-05-21T18:14:42","dateModified":"2020-05-21T18:14:42","image":"https:\/\/jobcespedes.dev\/img\/me_avatar.png","keywords":["database, postgres, pgpool2, molecule, ansible, containers, docker, IaC"],"mainEntityOfPage":"https:\/\/jobcespedes.dev\/2020\/05\/simple-testing-of-complex-scenarios\/","publisher":{"@type":"Organization","name":"https:\/\/jobcespedes.dev\/","logo":{"@type":"ImageObject","url":"https:\/\/jobcespedes.dev\/img\/me_avatar.png","height":60,"width":60}}}</script><meta property="og:title" content="Simple Testing of Complex Scenarios"><meta property="og:description" content="using Ansible and Molecule"><meta property="og:image" content="https://jobcespedes.dev/img/me_avatar.png"><meta property="og:url" content="https://jobcespedes.dev/2020/05/simple-testing-of-complex-scenarios/"><meta property="og:type" content="website"><meta property="og:site_name" content="My Dev Blog"><meta name=twitter:title content="Simple Testing of Complex Scenarios"><meta name=twitter:description content="using Ansible and Molecule"><meta name=twitter:image content="https://jobcespedes.dev/img/me_avatar.png"><meta name=twitter:card content="summary_large_image"><link href=https://jobcespedes.dev/img/me.ico rel=icon type=image/x-icon><meta name=generator content="Hugo 0.94.1"><link rel=alternate href=https://jobcespedes.dev/index.xml type=application/rss+xml title="My Dev Blog"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css integrity=sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI crossorigin=anonymous><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css integrity=sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu crossorigin=anonymous><link rel=stylesheet href=https://jobcespedes.dev/css/main.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"><link rel=stylesheet href=https://jobcespedes.dev/css/highlight.min.css><link rel=stylesheet href=https://jobcespedes.dev/css/codeblock.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css integrity=sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css integrity=sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R crossorigin=anonymous><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-159956456-1","auto"),ga("send","pageview"))</script></head><body><nav class="navbar navbar-default navbar-fixed-top navbar-custom"><div class=container-fluid><div class=navbar-header><button type=button class=navbar-toggle data-toggle=collapse data-target=#main-navbar>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span></button>
+<a class=navbar-brand href=https://jobcespedes.dev/>My Dev Blog</a></div><div class="collapse navbar-collapse" id=main-navbar><ul class="nav navbar-nav navbar-right"></ul></div><div class=avatar-container><div class=avatar-img-border><a title="My Dev Blog" href=https://jobcespedes.dev/><img class=avatar-img src=https://jobcespedes.dev/img/me_avatar.png alt="My Dev Blog"></a></div></div></div></nav><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><header class=header-section><div class="intro-header no-img"><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=posts-heading><h1>Simple Testing of Complex Scenarios</h1><hr class=small><h2 class=posts-subheading>using Ansible and Molecule</h2></div></div></div></div></div></header><div class=container role=main><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><article role=main class=blog-post><p><strong>Is there something easy when deploying and configuring the database layer?</strong></p><p>Aspects of Data integrity and reliable/safe operations add up to complexity, which only increases when tradicional SQL, high availability, fault tolerance, scalability and high levels of concurrency, are required. It is a sensitive layer, no doubt. Consequently, if there is something easy there, it would be to screw everything up.</p><p>Do not fear, go test, screw up and learn. I mean, just not in production. How? By leveraging Infra automation and testing using <a href=https://docs.ansible.com/>Ansible</a>, <a href=https://molecule.readthedocs.io/en/latest/>Molecule</a> and containers. They will allow you to quickly create a disposable local environment in which you can deploy your automated configuration and do all the testing you need as well as verification.</p><p>If this is of interest to you, keep reading for an actual example you could try in your machine. It is a Postgres cluster to be configured by Ansible. You can deploy it to local containers using Molecule, a framework for developing and testing Ansible roles. You just need to be acquainted with Ansible <a href=https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html>inventories</a>, <a href=https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html>roles</a> and <a href=https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html>playbooks</a>.</p><p>This reading will be structured as follows: a) Ansible role for the cluster; b) prerequisites to run it; c) screwing things up; d) testing and verifying;</p><hr><h2 id=ansible-role>Ansible role</h2><p>Ok. Back to the example, <a href=https://github.com/jobcespedes/pg_cluster>pg_cluster</a> is an Ansible role to install, configure and bootstrap a Postgres cluster. You can install it, run it and test it, in a local environment using Molecule, checking that some prerequisites are installed first.</p><p>Let me just mention real quick what Postgres and Pgpool2 are, in case they need some introduction 😜. <a href=https://www.postgresql.org/>Postgres</a> is a object-relational database system, considered one of the best. <a href=https://www.pgpool.net/mediawiki/index.php/Main_Page>Pgpool2</a> is a middleware in front of Postgres for connection pooling, load balancing and watchdog. It can handle backend failover, failback and recovery. Both are open source.</p><p>This role installs a cluster with 3 nodes -bear with me, here comes a textual description-. Each node runs Pgpool2 and Postgres. Pgpool2 and Postgres have two roles each. For Postgres, those roles are: primary and standby. For Pgpool2, those roles are: active and standby. Pgpool and Postgres roles are independent. However, the first node starts with both, active (pgpool2) and primary(postgres). It has a Floating IP. The rest of nodes have standby role (pgpool and postgres).</p><p>The following diagram is a graphical and probably better description of the last paragraph:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-Plaintext data-lang=Plaintext><span class=line><span class=cl>                  FLOATING IP
+</span></span><span class=line><span class=cl>                 +-----------+     WATCHDOG
+</span></span><span class=line><span class=cl>        +--------|  PGPOOL2  |--------+
+</span></span><span class=line><span class=cl>        |        ------------- nic0   |
+</span></span><span class=line><span class=cl>        |        |           |        |
+</span></span><span class=line><span class=cl>        |        | POSTGRES  |        |
+</span></span><span class=line><span class=cl>        |        | master    |        |
+</span></span><span class=line><span class=cl>        |        +-----------+        |
+</span></span><span class=line><span class=cl>        |          nic1|              |
+</span></span><span class=line><span class=cl>  +-----------+        |        +-----------+
+</span></span><span class=line><span class=cl>  |  PGPOOL2  |        |        |  PGPOOL2  |
+</span></span><span class=line><span class=cl>  |-----------|        |        -------------
+</span></span><span class=line><span class=cl>  |           |        |        |           |
+</span></span><span class=line><span class=cl>  | POSTGRES  |        |        | POSTGRES  |
+</span></span><span class=line><span class=cl>  | standby   |-----------------| stanby    |
+</span></span><span class=line><span class=cl>  +-----------+   REPLICATION   +-----------+
+</span></span></code></pre></div><blockquote><p>DISCLAIMER: pg_cluster has been used only in testing so far</p></blockquote><hr><h2 id=prerequisites>Prerequisites</h2><p>In order to test this role, make sure the following prerequisites are met. <a href=https://docs.docker.com/engine/install/#server>Docker should be installed</a>. You also need <a href=https://pip.pypa.io/en/stable/installing/>pip</a> to install Molecule and some other required python packages. For example, to install the prerequisites in Fedora you can do:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1>## Docker</span>
+</span></span><span class=line><span class=cl>sudo dnf install -y docker
+</span></span><span class=line><span class=cl><span class=c1>## Pip</span>
+</span></span><span class=line><span class=cl>sudo dnf install -y python3-pip
+</span></span><span class=line><span class=cl><span class=c1>## Ansible and role requirements</span>
+</span></span><span class=line><span class=cl>pip install --user <span class=s2>&#34;ansible&gt;=2.8&#34;</span> netaddr
+</span></span><span class=line><span class=cl><span class=c1>## Molecule and its requirements</span>
+</span></span><span class=line><span class=cl>pip install --user <span class=s2>&#34;molecule&gt;=3&#34;</span> docker ansible-lint yamllint flake8
+</span></span></code></pre></div><p>Once they are installed, download <a href=https://github.com/jobcespedes/pg_cluster>pg_cluster</a> and you are ready to go:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>git clone https://github.com/jobcespedes/pg_cluster
+</span></span><span class=line><span class=cl><span class=nb>cd</span> pg_cluster
+</span></span><span class=line><span class=cl><span class=nv>working_dir</span><span class=o>=</span><span class=k>$(</span><span class=nb>pwd</span><span class=k>)</span>
+</span></span></code></pre></div><blockquote><p>$working_dir will be our working directory</p></blockquote><p>With <code>$working_dir</code> as your current path, <em>molecule</em> would be one of its directories. Inside <em>molecule</em> dir you will find the <em>default</em> test scenario. There you can find molecule configuration, playbooks for each <a href=##Test-and-verify>sequence</a> and the scenario&rsquo;s inventory.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>├── defaults
+</span></span><span class=line><span class=cl>├── handlers
+</span></span><span class=line><span class=cl>├── meta
+</span></span><span class=line><span class=cl>├── molecule
+</span></span><span class=line><span class=cl>│   └── default
+</span></span><span class=line><span class=cl>│       ├── converge.yml
+</span></span><span class=line><span class=cl>│       ├── group_vars
+</span></span><span class=line><span class=cl>│       │   └── all.yml
+</span></span><span class=line><span class=cl>│       ├── hosts
+</span></span><span class=line><span class=cl>│       ├── molecule.yml
+</span></span><span class=line><span class=cl>│       ├── prepare.yml
+</span></span><span class=line><span class=cl>│       ├── side_effect.yml
+</span></span><span class=line><span class=cl>│       └── verify.yml
+</span></span><span class=line><span class=cl>├── tasks
+</span></span><span class=line><span class=cl>├── templates
+</span></span><span class=line><span class=cl>└── <span class=nb>test</span>
+</span></span></code></pre></div><p>If you want to modify the inventory and its variables, you can edit the &lsquo;hosts&rsquo; file, add &lsquo;group_vars&rsquo; files or add a &lsquo;host_vars&rsquo; dir and put some files in it. For example:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>├── molecule
+</span></span><span class=line><span class=cl>│   └── default
+</span></span><span class=line><span class=cl>│       ├── host_vars
+</span></span><span class=line><span class=cl>│       │   └── pg-master.yml
+</span></span><span class=line><span class=cl>│       ├── group_vars
+</span></span><span class=line><span class=cl>│       │   └── all.yml
+</span></span><span class=line><span class=cl>│       ├── hosts
+</span></span></code></pre></div><hr><h2 id=screwing-things-up>Screwing things up</h2><p>With prerequisites met, you are ready to configure the cluster using containers. To create the local environment, run (be patient, it might take some time 😄):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>molecule converge
+</span></span></code></pre></div><p>That´s it. Molecule configured the cluster in your machine. The subcommand <em>converge</em> creates and prepares the default test scenario and leaves it up, running. So, you are able to modify it afterwards. The command <code>molecule destroy</code> removes it, in case you have no need for it anymore.</p><p>While it is running, you can modify the Ansible role, molecule playbooks, molecule inventory, list cluster containers and log in to any of them, among other things:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># list cluster containers</span>
+</span></span><span class=line><span class=cl>molecule list
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># log in to master node</span>
+</span></span><span class=line><span class=cl>molecule login -h pg-master
+</span></span></code></pre></div><p>I will not try to tell you what to do here. You can do anything you want. But you might be interested in trying to remove one postgres backend and do an online recovery for it. You will need to log in to a container and run some commands there. First, run <code>molecule login -h pg-master</code> and then, inside the container:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># 1. Dettachment
+</span></span><span class=line><span class=cl>## check nodes status and notice &#39;status&#39; column of all nodes: &#39;up&#39;
+</span></span><span class=line><span class=cl>psql -h localhost -U postgres -c &#34;show pool_nodes;&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>## dettach first standby node with pcp command
+</span></span><span class=line><span class=cl>pcp_detach_node -h localhost  -w -p 9898 -U postgres 1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 2. Recovery
+</span></span><span class=line><span class=cl>## check nodes status and notice &#39;status&#39; column of node 1: &#39;down&#39;
+</span></span><span class=line><span class=cl>psql -h localhost -U postgres -c &#34;show pool_nodes;&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>## online recovery of node 1
+</span></span><span class=line><span class=cl>pcp_recovery_node -h localhost  -w -p 9898 -U postgres 1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 3. Check recovery
+</span></span><span class=line><span class=cl>## check nodes status and notice &#39;status&#39; column of all nodes: &#39;up&#39;
+</span></span><span class=line><span class=cl>psql -h localhost -U postgres -c &#34;show pool_nodes;&#34;
+</span></span></code></pre></div><hr><h2 id=test-and-verify>Test and verify</h2><p>Molecule has several test sequences. Creating the scenario and preparing it are two of them. In addition, Molecule gives you the option to run a specific one, a set of them or a full test with all sequences.</p><p>Two sequences inside <a href=https://github.com/jobcespedes/pg_cluster>pg_cluster</a> are side_effect and verify. Side_effect sequence has some tasks related to what we already try: failover and online recovery. Verify sequence has some assertions about the cluster: checking all backends are up, checking pcp commands, number of nodes, roles, among others. Check each respective playbook for the details of what is being tested and verified.</p><p>To verify after converge, run <code>molecule verify</code>. After you are done testing, remember to run <code>molecule destroy</code>.</p><hr><h2 id=conclusion>Conclusion</h2><p>Ansible and Molecule help you test and verify an automated deployment. It could be on your machine, CI/CD or any any other environment. You have the option to do a full test sequence or specific sets. It enables incremental development of your automated configuration. The best part for me, it gives me a safe environment to debug, test and learn. I just need to run <code>molecule converge</code> and there I have it.</p><p>Molecule has more to it than what has been covered here. <a href=https://molecule.readthedocs.io/en/latest/getting-started.html>Check out its docs</a> to learn more. If you have read this far, I hope you have been able to simple test a complex scenario and safely screwed things up. 👋</p><hr><h2 id=additional-resources>Additional Resources</h2><p>The following resources are useful for further learning basic and advanced Ansible topics:</p><ul><li><a href=https://spacelift.io/blog/ansible-playbooks>Working with Ansible Playbooks – Tips & Tricks with Examples</a></li><li><a href=https://dev.to/jobcespedes/multiple-environments-in-ansible-4c6n>Multiple Environments in Ansible</a></li></ul><div class=blog-tags><a href=https://jobcespedes.dev//tags/database/>database</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/postgres/>postgres</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/pgpool2/>pgpool2</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/molecule/>molecule</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/ansible/>ansible</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/containers/>containers</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/docker/>docker</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/iac/>IaC</a>&nbsp;</div><h4 class=see-also>See also</h4><ul><li><a href=/2022/01/a-keydb-operator/>A KeyDB Operator</a></li><li><a href=/2021/07/a-kubernetes-nfs-operator/>A Kubernetes NFS Operator</a></li><li><a href=/2021/06/a-minimal-container-image-for-rocky-linux-8/>A Minimal Container Image for Rocky Linux 8</a></li><li><a href=/2020/03/alias-docker-podman/>alias docker=podman</a></li><li><a href=/2020/02/multiple-environments-in-ansible/>Multiple Environments in Ansible</a></li></ul></article><ul class="pager blog-pager"><li class=previous><a href=https://jobcespedes.dev/2020/03/alias-docker-podman/ data-toggle=tooltip data-placement=top title="alias docker=podman">&larr; Previous Post</a></li><li class=next><a href=https://jobcespedes.dev/2021/06/a-minimal-container-image-for-rocky-linux-8/ data-toggle=tooltip data-placement=top title="A Minimal Container Image for Rocky Linux 8">Next Post &rarr;</a></li></ul></div></div></div><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center footer-links"><li><a href=https://github.com/jobcespedes title=GitHub><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://gitlab.com/jobcespedes title=GitLab><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-gitlab fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://linkedin.com/in/jobcespedes title=LinkedIn><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-linkedin fa-stack-1x fa-inverse"></i></span></a></li><li><a href title=RSS><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="credits copyright text-muted">Job Céspedes Ortiz
+&nbsp;&bull;&nbsp;&copy;
+2023
+&nbsp;&bull;&nbsp;
+<a href=https://jobcespedes.dev/>My Dev Blog</a></p><p class="credits theme-by text-muted"><a href=https://gohugo.io>Hugo v0.94.1</a> powered &nbsp;&bull;&nbsp; Theme <a href=https://github.com/halogenica/beautifulhugo>Beautiful Hugo</a> adapted from <a href=https://deanattali.com/beautiful-jekyll/>Beautiful Jekyll</a></p></div></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js integrity=sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous onload=renderMathInElement(document.body)></script>
+<script src=https://code.jquery.com/jquery-3.7.0.slim.min.js integrity=sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js integrity=sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd crossorigin=anonymous></script>
+<script src=https://jobcespedes.dev/js/main.js></script>
+<script src=https://jobcespedes.dev/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script><script>$(document).ready(function(){$("pre.chroma").css("padding","0")})</script><script src=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js integrity=sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy crossorigin=anonymous></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js integrity=sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q crossorigin=anonymous></script><script src=https://jobcespedes.dev/js/load-photoswipe.js></script></body></html>

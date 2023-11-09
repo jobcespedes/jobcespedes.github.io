@@ -1,487 +1,65 @@
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
-  <head>
-    
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>A Kubernetes NFS Operator - My Dev Blog</title>
-  <meta name="description" content="with extra functionality on top of Rook NFS">
-  <meta name="author" content="Job Céspedes Ortiz"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "My Dev Blog",
-    
-    "url": "https:\/\/jobcespedes.dev\/"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/jobcespedes.dev\/"
-  
-  
-  
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/jobcespedes.dev\/",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/jobcespedes.dev\/2021\/07\/a-kubernetes-nfs-operator\/",
-          "name": "A kubernetes nfs operator"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Job Céspedes Ortiz"
-  },
-  "headline": "A Kubernetes NFS Operator",
-  "description" : "NFS Operator adds three important features for a NFS in Kubernetes. It allows setting NFS export ownership\/permissions, enables PVC autoexpansion and reduces the number of manual resource definitions. It is based on Rook NFS v1.7 and Ansible Operator SDK. Thus, the new features are in addition to those in Rook NFS. The extra functions it adds on top of Rook NFS are:\n It is able to set ownership and permissions for the (NFS) Server export It is able to autoexpand\/adjust the value of (NFS) Server PVC storage size It automatically creates a StorageClass with a (NFS) Server  There are some restrictions compared to Rook NFS:",
-  "inLanguage" : "en",
-  "wordCount":  508 ,
-  "datePublished" : "2021-07-02T13:55:42",
-  "dateModified" : "2021-07-02T13:55:42",
-  "image" : "https:\/\/jobcespedes.dev\/img\/me_avatar.png",
-  "keywords" : [ "kubernetes, containers, operator, rook, nfs, autoexpansion, m4e-operator, krestomatio" ],
-  "mainEntityOfPage" : "https:\/\/jobcespedes.dev\/2021\/07\/a-kubernetes-nfs-operator\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/jobcespedes.dev\/",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/jobcespedes.dev\/img\/me_avatar.png",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="A Kubernetes NFS Operator" />
-<meta property="og:description" content="with extra functionality on top of Rook NFS">
-<meta property="og:image" content="https://jobcespedes.dev/img/me_avatar.png" />
-<meta property="og:url" content="https://jobcespedes.dev/2021/07/a-kubernetes-nfs-operator/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="My Dev Blog" />
-
-  <meta name="twitter:title" content="A Kubernetes NFS Operator" />
-  <meta name="twitter:description" content="with extra functionality on top of Rook NFS">
-  <meta name="twitter:image" content="https://jobcespedes.dev/img/me_avatar.png" />
-  <meta name="twitter:card" content="summary" />
-  <link href='https://jobcespedes.dev/img/me.ico' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.96.0" />
-  <link rel="alternate" href="https://jobcespedes.dev/index.xml" type="application/rss+xml" title="My Dev Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://jobcespedes.dev/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://jobcespedes.dev/css/highlight.min.css" /><link rel="stylesheet" href="https://jobcespedes.dev/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-159956456-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
-  </head>
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://jobcespedes.dev/">My Dev Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-
-        
-
-        
-      </ul>
-    </div>
-
-    
-      <div class="avatar-container">
-        <div class="avatar-img-border">
-          <a title="My Dev Blog" href="https://jobcespedes.dev/">
-            <img class="avatar-img" src="https://jobcespedes.dev/img/me_avatar.png" alt="My Dev Blog" />
-          </a>
-        </div>
-      </div>
-    
-
-  </div>
-</nav>
-
-
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-
-
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
-    
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="posts-heading">
-              
-                <h1>A Kubernetes NFS Operator</h1>
-              
-              
-                <hr class="small">
-              
-              
-                
-                  <h2 class="posts-subheading">with extra functionality on top of Rook NFS</h2>
-                
-              
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p><a href="https://github.com/krestomatio/nfs-operator">NFS Operator</a> adds three important features for a NFS in Kubernetes. It allows setting NFS export <a href="#ownershippermissions">ownership/permissions</a>, enables PVC <a href="#autoexpansion">autoexpansion</a> and reduces the number of manual <a href="#storageclass">resource definitions</a>. It is based on <a href="https://github.com/rook/nfs/blob/release-1.7/Documentation/README.md">Rook NFS v1.7</a> and <a href="https://sdk.operatorframework.io/docs/building-operators/ansible/tutorial/">Ansible Operator SDK</a>. Thus, the new features are in addition to those in Rook NFS. The extra functions it adds on top of Rook NFS are:</p>
-<ol>
-<li>It is able to set ownership and permissions for the (NFS) Server export</li>
-<li>It is able to autoexpand/adjust the value of (NFS) Server PVC storage size</li>
-<li>It automatically creates a StorageClass with a (NFS) Server</li>
-</ol>
-<p>There are some restrictions compared to Rook NFS:</p>
-<ul>
-<li>Only one export/PVC per (NFS) Server</li>
-</ul>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>Prerequisites are the same as <a href="https://github.com/rook/nfs/blob/release-1.7/Documentation/quickstart.md#prerequisites">Rook NFS</a>. Therefore, <strong>Rook NFS v1.7 must be installed</strong>.</p>
-<h2 id="install">Install</h2>
-<blockquote>
-<p>The Kubernetes Operator in this project is in <strong>Alpha</strong> version. <strong>Use at your own risk</strong></p>
-</blockquote>
-<p>Follow the next steps to install the NFS Operator as well as Rook NFS v1.7 operator. Notice that CRs should be installed in the namesapace <strong>rook-nfs</strong>. It is the default namespace for (NFS) Servers in Rook NFS Operator installation:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># install rook nfs operator v1.7</span>
-</span></span><span class="line"><span class="cl">make deploy-rook
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># install this operator</span>
-</span></span><span class="line"><span class="cl">make deploy
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># create a nfs server cr/object from sample</span>
-</span></span><span class="line"><span class="cl">kubectl -n rook-nfs apply -f config/samples/nfs_v1alpha1_server.yaml
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># follow/check nfs operator logs</span>
-</span></span><span class="line"><span class="cl">kubectl -n nfs-operator-system logs -l control-plane<span class="o">=</span>controller-manager -c manager  -f
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># follow sample nfs server cr/object status</span>
-</span></span><span class="line"><span class="cl">kubectl -n rook-nfs get Server server-sample -o yaml -w
-</span></span></code></pre></div><h2 id="uninstall">Uninstall</h2>
-<p>Follow the next steps to uninstall it.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># delete the nfs server cr/object</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># CAUTION with data loss</span>
-</span></span><span class="line"><span class="cl">kubectl -n rook-nfs delete -f config/samples/nfs_v1alpha1_server.yaml
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># uninstall this operator</span>
-</span></span><span class="line"><span class="cl">make undeploy
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># uninstall rook nfs operator v1.7</span>
-</span></span><span class="line"><span class="cl">make undeploy-rook
-</span></span></code></pre></div><h2 id="configuration-options">Configuration Options</h2>
-<p>For a CRD sample, see: <a href="config/samples/nfs_v1alpha1_server.yaml">sample</a></p>
-<h3 id="ownershippermissions">Ownership/Permissions</h3>
-<p>To set export folder ownership, set <em>server_export_userid</em> and <em>server_export_groupid</em>. For export folder permissions, set <em>server_export_permissions</em>. For instance:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Ownership/permissions</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">## Set export folder userid to 48</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server_export_userid</span><span class="p">:</span><span class="w"> </span><span class="m">48</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">## Set export folder groupid to 0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server_export_groupid</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">## Set export folder permissions to 775</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server_export_permissions</span><span class="p">:</span><span class="w"> </span><span class="m">755</span><span class="w">
-</span></span></span></code></pre></div><h3 id="autoexpansion">Autoexpansion</h3>
-<p>When autoexpansion is enabled (<em>server_pvc_autoexpansion</em>), if storage available is less than 20% or below <em>server_pvc_autoexpansion_gib</em>, PVC storage size is auto incremented according to <em>server_pvc_autoexpansion_gib</em>. However, it will not be increment beyond <em>server_pvc_autoexpansion_cap_gib</em> (see related <a href="https://github.com/krestomatio/ansible-collection-k8s/blob/c8768df3d9af4ddf7258c31d37cc3f54cc5a4cf6/plugins/module_utils/storage.py#L62">function</a>). The following is a config example for it:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Autoexpansion</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">## Enable autoexpansion</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server_pvc_autoexpansion</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">## Every time autoexpansion is required, increment 5 GiB</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server_pvc_autoexpansion_gib</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">### But no more than 250 GiB</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">server_pvc_autoexpansion_cap_gib</span><span class="p">:</span><span class="w"> </span><span class="m">250</span><span class="w">
-</span></span></span></code></pre></div><h4 id="please-you-should-take-into-consideration-the-following">Please, you should take into consideration the following:</h4>
-<ul>
-<li>Not all types of storage are compatible. For instance, hostpath is not.</li>
-<li>Kubernetes cluster and (NFS) Server PVC must support expansion of volumes</li>
-<li>In older K8s versions, (NFS) Server pod may be restart when autoexpansion is enabled if Kubernetes feature gate <em>ExpandInUsePersistentVolumes</em> is false. See: Kubernetes <a href="https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/">Feature Gates</a></li>
-</ul>
-<h3 id="storageclass">StorageClass</h3>
-<p>A class is automatically created with suffix <strong>-nfs-sc</strong>. If a CR is created with the name: <a href="config/samples/nfs_v1alpha1_server.yaml"><strong>server-sample</strong></a>, a storage class named <strong>server-sample-nfs-sc</strong> is also created and showed in the CR status.</p>
-<h3 id="advanced-options">Advanced Options</h3>
-<p>For advanced configuration options available for CR spec, take a look at <a href="https://github.com/krestomatio/ansible-collection-k8s/blob/master/roles/v1alpha1/nfs/server/defaults/main/server.yml">the options</a></p>
-<h2 id="want-to-contribute">Want to contribute?</h2>
-<ul>
-<li>Use <a href="https://github.com/krestomatio/nfs-operator/issues">Github issues</a> to report bugs, send enhancement, new feature requests and questions</li>
-<li>Join <a href="https://t.me/nfs_operator">our telegram group</a></li>
-</ul>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://jobcespedes.dev//tags/kubernetes/">kubernetes</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/containers/">containers</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/operator/">operator</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/rook/">rook</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/nfs/">nfs</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/autoexpansion/">autoexpansion</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/m4e-operator/">m4e-operator</a>&nbsp;
-            
-              <a href="https://jobcespedes.dev//tags/krestomatio/">krestomatio</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-          
-            
-          
-
-          
-                  <h4 class="see-also">See also</h4>
-                  <ul>
-                
-                
-                    <li><a href="/2022/01/a-keydb-operator/">A KeyDB Operator</a></li>
-                
-                    <li><a href="/2021/06/a-minimal-container-image-for-rocky-linux-8/">A Minimal Container Image for Rocky Linux 8</a></li>
-                
-                    <li><a href="/2020/05/simple-testing-of-complex-scenarios/">Simple Testing of Complex Scenarios</a></li>
-                
-                    <li><a href="/2020/03/alias-docker-podman/">alias docker=podman</a></li>
-                
-                    <li><a href="/2020/02/multiple-environments-in-ansible/">Multiple Environments in Ansible</a></li>
-                
-              </ul>
-
-          
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://jobcespedes.dev/2021/06/a-minimal-container-image-for-rocky-linux-8/" data-toggle="tooltip" data-placement="top" title="A Minimal Container Image for Rocky Linux 8">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://jobcespedes.dev/2022/01/a-keydb-operator/" data-toggle="tooltip" data-placement="top" title="A KeyDB Operator">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
-</div>
-
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://github.com/jobcespedes" title="GitHub">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://gitlab.com/jobcespedes" title="GitLab">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-gitlab fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/jobcespedes" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              Job Céspedes Ortiz
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2022
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://jobcespedes.dev/">My Dev Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.96.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
-      </div>
-    </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script src="https://jobcespedes.dev/js/main.js"></script>
-<script src="https://jobcespedes.dev/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://jobcespedes.dev/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
-
-    
-  </body>
-</html>
-
+<!doctype html><html lang=en itemscope itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><title>A Kubernetes NFS Operator -</title><meta name=description content="with extra functionality on top of Rook NFS"><meta name=author content="Job Céspedes Ortiz"><script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","name":"My Dev Blog","url":"https:\/\/jobcespedes.dev\/"}</script><script type=application/ld+json>{"@context":"http://schema.org","@type":"Organization","name":"","url":"https:\/\/jobcespedes.dev\/"}</script><script type=application/ld+json>{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https:\/\/jobcespedes.dev\/","name":"home"}},{"@type":"ListItem","position":3,"item":{"@id":"https:\/\/jobcespedes.dev\/2021\/07\/a-kubernetes-nfs-operator\/","name":"A kubernetes nfs operator"}}]}</script><script type=application/ld+json>{"@context":"http://schema.org","@type":"Article","author":{"name":"Job Céspedes Ortiz"},"headline":"A Kubernetes NFS Operator","description":"NFS Operator creates NFSv4 ganesha servers in Kubernetes, allowing to set ownership\/permissions of their NFS export directory; to autoexpand their PVC; and to enable RWX storage from them:\n It can set ownership and permissions for export parent directory of the (NFS) Ganesha server. It is able to expand\/adjust the PVC size of the (NFS) Ganesha server automatically, as it grows. It could autogenerate an StorageClass that uses the (NFS) Ganesha server for RWX storage.","inLanguage":"en","wordCount":527,"datePublished":"2021-07-02T13:55:42","dateModified":"2021-07-02T13:55:42","image":"https:\/\/jobcespedes.dev\/img\/me_avatar.png","keywords":["kubernetes, containers, operator, rook, nfs, autoexpansion, moodle-operator, krestomatio"],"mainEntityOfPage":"https:\/\/jobcespedes.dev\/2021\/07\/a-kubernetes-nfs-operator\/","publisher":{"@type":"Organization","name":"https:\/\/jobcespedes.dev\/","logo":{"@type":"ImageObject","url":"https:\/\/jobcespedes.dev\/img\/me_avatar.png","height":60,"width":60}}}</script><meta property="og:title" content="A Kubernetes NFS Operator"><meta property="og:description" content="with extra functionality on top of Rook NFS"><meta property="og:image" content="https://jobcespedes.dev/img/me_avatar.png"><meta property="og:url" content="https://jobcespedes.dev/2021/07/a-kubernetes-nfs-operator/"><meta property="og:type" content="website"><meta property="og:site_name" content="My Dev Blog"><meta name=twitter:title content="A Kubernetes NFS Operator"><meta name=twitter:description content="with extra functionality on top of Rook NFS"><meta name=twitter:image content="https://jobcespedes.dev/img/me_avatar.png"><meta name=twitter:card content="summary_large_image"><link href=https://jobcespedes.dev/img/me.ico rel=icon type=image/x-icon><meta name=generator content="Hugo 0.94.1"><link rel=alternate href=https://jobcespedes.dev/index.xml type=application/rss+xml title="My Dev Blog"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css integrity=sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI crossorigin=anonymous><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css integrity=sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu crossorigin=anonymous><link rel=stylesheet href=https://jobcespedes.dev/css/main.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"><link rel=stylesheet href=https://jobcespedes.dev/css/highlight.min.css><link rel=stylesheet href=https://jobcespedes.dev/css/codeblock.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css integrity=sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css integrity=sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R crossorigin=anonymous><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-159956456-1","auto"),ga("send","pageview"))</script></head><body><nav class="navbar navbar-default navbar-fixed-top navbar-custom"><div class=container-fluid><div class=navbar-header><button type=button class=navbar-toggle data-toggle=collapse data-target=#main-navbar>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span></button>
+<a class=navbar-brand href=https://jobcespedes.dev/>My Dev Blog</a></div><div class="collapse navbar-collapse" id=main-navbar><ul class="nav navbar-nav navbar-right"></ul></div><div class=avatar-container><div class=avatar-img-border><a title="My Dev Blog" href=https://jobcespedes.dev/><img class=avatar-img src=https://jobcespedes.dev/img/me_avatar.png alt="My Dev Blog"></a></div></div></div></nav><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><header class=header-section><div class="intro-header no-img"><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=posts-heading><h1>A Kubernetes NFS Operator</h1><hr class=small><h2 class=posts-subheading>with extra functionality on top of Rook NFS</h2></div></div></div></div></div></header><div class=container role=main><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><article role=main class=blog-post><p><a href=https://github.com/krestomatio/nfs-operator>NFS Operator</a> creates NFSv4 ganesha servers in Kubernetes, allowing to set <a href=#ownershippermissions>ownership/permissions</a> of their NFS export directory; to <a href=#autoexpansion>autoexpand their PVC</a>; and to enable <a href=#rwx-storage>RWX storage</a> from them:</p><ol><li>It can set ownership and permissions for <a href=#ownershippermissions>export parent directory</a> of the (NFS) Ganesha server.</li><li>It is able to <a href=#autoexpansion>expand/adjust</a> the PVC size of the (NFS) Ganesha server automatically, as it grows.</li><li>It could autogenerate an StorageClass that uses the (NFS) Ganesha server for <a href=#rwx-storage>RWX storage</a>.</li></ol><blockquote><p>It is based on <a href=https://sdk.operatorframework.io/docs/building-operators/ansible/tutorial/>Ansible Operator SDK</a>.</p></blockquote><blockquote><p>This operator is part of the Kubernetes operators and tools developed by <a href=https://krestomatio.com>Krestomatio, a managed service for Moodle™ instances</a></p></blockquote><h2 id=dependencies>Dependencies</h2><blockquote><p>A previous version had NFS Rook as a dependency. However, it is no longer the case</p></blockquote><ul><li><a href=https://github.com/kubernetes-csi/csi-driver-nfs>NFS CSI</a> driver <code>version >= v3.0.0</code> for dynamic provisioning</li></ul><h2 id=install>Install</h2><blockquote><p>The Kubernetes Operator in this project is in <strong>Alpha</strong> version. <strong>Use at your own risk</strong></p></blockquote><p>Follow the next steps to install the NFS Operator:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># install this operator</span>
+</span></span><span class=line><span class=cl>make deploy
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># create a nfs ganesha server cr/object from sample</span>
+</span></span><span class=line><span class=cl>kubectl apply -f config/samples/nfs_v1alpha1_ganesha.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># follow/check nfs operator logs</span>
+</span></span><span class=line><span class=cl>kubectl -n nfs-operator-system logs -l control-plane<span class=o>=</span>controller-manager -c manager  -f
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># follow sample nfs ganesha server cr/object status</span>
+</span></span><span class=line><span class=cl>kubectl get ganesha ganesha-sample -o yaml -w
+</span></span></code></pre></div><h2 id=uninstall>Uninstall</h2><p>Follow the next steps to uninstall it.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># delete the nfs ganesha server cr/object</span>
+</span></span><span class=line><span class=cl><span class=c1># CAUTION with data loss</span>
+</span></span><span class=line><span class=cl>kubectl delete -f config/samples/nfs_v1alpha1_ganesha.yaml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># uninstall this operator</span>
+</span></span><span class=line><span class=cl>make undeploy
+</span></span></code></pre></div><h2 id=configuration-options>Configuration Options</h2><p>For a Custom Resource (CR) sample of a (NFS) Ganesha server, see: <a href=config/samples/nfs_v1alpha1_ganesha.yaml>sample</a></p><h3 id=ownershippermissions>Ownership/Permissions</h3><p>To set export folder ownership, set <em>ganeshaExportUserid</em> and <em>ganeshaExportGroupid</em>. For export folder permissions, set <em>ganeshaExportMode</em>. For instance:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># Ownership/permissions</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>## Set export folder userid to 48</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ganeshaExportUserid</span><span class=p>:</span><span class=w> </span><span class=m>48</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>## Set export folder groupid to 0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ganeshaExportGroupid</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>## Set export folder permissions to 775</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ganeshaExportMode</span><span class=p>:</span><span class=w> </span><span class=m>755</span><span class=w>
+</span></span></span></code></pre></div><h3 id=autoexpansion>Autoexpansion</h3><p>When autoexpansion is enabled (<em>ganeshaPvcDataAutoexpansion</em>), if storage available is less than 20% or below <em>ganeshaPvcDataAutoexpansionIncrementGib</em>, PVC storage size is auto incremented according to <em>ganeshaPvcDataAutoexpansionIncrementGib</em>. However, it will not be increment beyond <em>ganeshaPvcDataAutoexpansionCapGib</em> (see related <a href=https://github.com/krestomatio/ansible-collection-k8s/blob/c8768df3d9af4ddf7258c31d37cc3f54cc5a4cf6/plugins/module_utils/storage.py#L62>function</a>). The following is a config example for it:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># Autoexpansion</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>## Enable autoexpansion</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ganeshaPvcDataAutoexpansion</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>## Every time autoexpansion is required, increment 5 GiB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ganeshaPvcDataAutoexpansionIncrementGib</span><span class=p>:</span><span class=w> </span><span class=m>5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>### But no more than 25 GiB</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ganeshaPvcDataAutoexpansionCapGib</span><span class=p>:</span><span class=w> </span><span class=m>25</span><span class=w>
+</span></span></span></code></pre></div><h4 id=please-you-should-take-into-consideration-the-following>Please, you should take into consideration the following:</h4><ul><li>Not all types of storage are compatible. For instance, hostpath is not.</li><li>Kubernetes cluster and PVC must support expansion of volumes</li><li>In older K8s versions, (NFS) Ganesha server pod may be restart when autoexpansion is enabled if Kubernetes feature gate <em>ExpandInUsePersistentVolumes</em> is false. See: Kubernetes <a href=https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/>Feature Gates</a></li></ul><h3 id=rwx-storage>RWX Storage</h3><p><code>StorageClass</code> (SC) autocreation could be specified in the (NFS) Ganesha server CR. The default is to generate one SC.</p><p>SC default name is defined using (NFS) Ganesha server CR name + suffix <strong>-nfs-sc</strong>. For example: if a CR is created with the name: <a href=config/samples/nfs_v1alpha1_ganesha.yaml><strong>ganesha-sample</strong></a>, a storage class named <strong>ganesha-sample-sc</strong> is also created and showed in the CR status.</p><h3 id=advanced-options>Advanced Options</h3><p>For advanced configuration options available for CR spec, take a look at <a href=https://github.com/krestomatio/ansible-collection-k8s/blob/master/roles/v1alpha1/nfs/ganesha/defaults/main/ganesha.yml>the options</a></p><h2 id=want-to-contribute>Want to contribute?</h2><ul><li>Use <a href=https://github.com/krestomatio/nfs-operator/issues>Github issues</a> to report bugs, send enhancement, new feature requests and questions</li><li>Join <a href=https://t.me/nfs_operator>our telegram group</a></li></ul><h2 id=about-krestomatiohttpskrestomatiocomabout><a href=https://krestomatio.com/about>About Krestomatio</a></h2><p><a href=https://krestomatio.com/>Krestomatio is a managed service for Moodle™ e-learning platforms</a>. It allows you to have open-source instances managed by a service optimized for Moodle™, complete with an additional plugin pack and customization options.</p><div class=blog-tags><a href=https://jobcespedes.dev//tags/kubernetes/>kubernetes</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/containers/>containers</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/operator/>operator</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/rook/>rook</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/nfs/>nfs</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/autoexpansion/>autoexpansion</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/moodle-operator/>moodle-operator</a>&nbsp;
+<a href=https://jobcespedes.dev//tags/krestomatio/>krestomatio</a>&nbsp;</div><h4 class=see-also>See also</h4><ul><li><a href=/2023/11/running-virtual-machines-on-orange-pi-5/>Running Virtual Machines on Orange Pi 5</a></li><li><a href=/2022/01/a-keydb-operator/>A KeyDB Operator</a></li><li><a href=/2021/06/a-minimal-container-image-for-rocky-linux-8/>A Minimal Container Image for Rocky Linux 8</a></li><li><a href=/2020/05/simple-testing-of-complex-scenarios/>Simple Testing of Complex Scenarios</a></li><li><a href=/2020/03/alias-docker-podman/>alias docker=podman</a></li></ul></article><ul class="pager blog-pager"><li class=previous><a href=https://jobcespedes.dev/2021/06/a-minimal-container-image-for-rocky-linux-8/ data-toggle=tooltip data-placement=top title="A Minimal Container Image for Rocky Linux 8">&larr; Previous Post</a></li><li class=next><a href=https://jobcespedes.dev/2022/01/a-keydb-operator/ data-toggle=tooltip data-placement=top title="A KeyDB Operator">Next Post &rarr;</a></li></ul></div></div></div><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center footer-links"><li><a href=https://github.com/jobcespedes title=GitHub><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://gitlab.com/jobcespedes title=GitLab><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-gitlab fa-stack-1x fa-inverse"></i></span></a></li><li><a href=https://linkedin.com/in/jobcespedes title=LinkedIn><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-linkedin fa-stack-1x fa-inverse"></i></span></a></li><li><a href title=RSS><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="credits copyright text-muted">Job Céspedes Ortiz
+&nbsp;&bull;&nbsp;&copy;
+2023
+&nbsp;&bull;&nbsp;
+<a href=https://jobcespedes.dev/>My Dev Blog</a></p><p class="credits theme-by text-muted"><a href=https://gohugo.io>Hugo v0.94.1</a> powered &nbsp;&bull;&nbsp; Theme <a href=https://github.com/halogenica/beautifulhugo>Beautiful Hugo</a> adapted from <a href=https://deanattali.com/beautiful-jekyll/>Beautiful Jekyll</a></p></div></div></div></footer><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js integrity=sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous onload=renderMathInElement(document.body)></script>
+<script src=https://code.jquery.com/jquery-3.7.0.slim.min.js integrity=sha384-w5y/xIeYixWvfM+A1cEbmHPURnvyqmVg5eVENruEdDjcyRLUSNej7512JQGspFUr crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js integrity=sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd crossorigin=anonymous></script>
+<script src=https://jobcespedes.dev/js/main.js></script>
+<script src=https://jobcespedes.dev/js/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script><script>$(document).ready(function(){$("pre.chroma").css("padding","0")})</script><script src=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js integrity=sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy crossorigin=anonymous></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js integrity=sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q crossorigin=anonymous></script><script src=https://jobcespedes.dev/js/load-photoswipe.js></script></body></html>
